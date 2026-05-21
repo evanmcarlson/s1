@@ -1,0 +1,28 @@
+.prompt-box-8w {
+  background-color: rgb(26, 26, 26) !important;
+  font-family: 'Inter', sans-serif !important;
+  border-radius: 20px !important;
+  padding: 1em 0.75em 1em 0.75em !important;
+}
+
+.prompt-box-8w p {
+  font-size: 18px !important;
+}
+
+.prompt-button-8w {
+  background-color: rgb(34, 34, 34) !important;
+  padding: 0.5em 0.37em 0.5em 0.37em !important;
+  font-size: 18px !important;
+}
+
+.button-primary-8w {
+  background-color: #007aff !important;
+}
+
+.poweredby-img {
+  bottom: 12% !important;
+}
+
+/* #requestingCameraPermissions {
+  background-color: rgb(26, 26, 26) !important;
+} */
