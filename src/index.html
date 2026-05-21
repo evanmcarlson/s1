@@ -5,15 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>A-Frame: Image Target Stickers</title>
-  <meta itemprop="name" content="A-Frame: Image Target Stickers">
-  <meta name="twitter:title" content="A-Frame: Image Target Stickers">
-  <meta property="og:title" content="A-Frame: Image Target Stickers">
-  <meta property="og:site_name" content="A-Frame: Image Target Stickers">
-  <meta name="description" content="I made AR stickers for my friends&#x27; birthday. Happy birthday Chanel &amp; Diana!">
-  <meta itemprop="description" content="I made AR stickers for my friends&#x27; birthday. Happy birthday Chanel &amp; Diana!">
-  <meta property="og:description" content="I made AR stickers for my friends&#x27; birthday. Happy birthday Chanel &amp; Diana!">
-  <meta name="twitter:description" content="I made AR stickers for my friends&#x27; birthday. Happy birthday Chanel &amp; Diana!">
+  <title>SHAPE REALITY STICKERS</title>
+  <meta itemprop="name" content="SHAPE REALITY STICKERS">
+  <meta name="twitter:title" content="SHAPE REALITY STICKERS">
+  <meta property="og:title" content="SHAPE REALITY STICKERS">
+  <meta property="og:site_name" content="SHAPE REALITY STICKERS">
+  <meta name="description" content="Shape Reality AR Stickers (S1)">
+  <meta itemprop="description" content="Shape Reality AR Stickers (S1)">
+  <meta property="og:description" content="Shape Reality AR Stickers (S1)">
+  <meta name="twitter:description" content="Shape Reality AR Stickers (S1)">
   <meta property="og:image" content="https://evanmcarlson.github.io/s1/assets/demo.png">
 
   <script crossorigin="anonymous" src="./external/scripts/8frame-1.3.0.min.js"></script>
@@ -56,16 +56,8 @@
 
   <a-light type="ambient" intensity="0.7"></a-light>
 
-  <!-- Note: "name:" must be set to the name of the image target uploaded to the 8th Wall Console -->
   <xrextras-named-image-target name="sticker1">
-    <!-- Add a child entity of the image target. -->
     <a-circle color="black" radius="0.5"></a-circle>
-    <!-- <a-plane
-      src="#img"
-      material="transparent: true; shader: hologram; numGlitchBars: 20"
-      position="0 0 0.001"
-      animation__spin="property: rotation; from: 0 0 0; to: 0 0 360; loop: true; easing: linear; dur: 10000"
-    ></a-plane> -->
     <a-plane
       src="#words"
       material="transparent: true"
@@ -74,9 +66,10 @@
     ></a-plane>
     <a-plane
       src="#logo"
-      material="transparent: true"
+      material="transparent: true; shader: hologram; numGlitchBars: 20"
       position="0 0 0.002"
     ></a-plane>
+    </a-entity>
   </xrextras-named-image-target>
 </a-scene>
 
