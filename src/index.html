@@ -42,6 +42,8 @@
     <img id="img" src="./assets/transparent.png" />
     <img id="words" src="./assets/words.png" />
     <img id="logo" src="./assets/logo.png" />
+    <img id="sticker1" src="./assets/sticker1-animated2.png" />
+    <video id="qrReveal" src="./assets/qr-trimmed.mp4" muted autoplay loop></video>
   </a-assets>
 
   <a-camera
@@ -55,20 +57,32 @@
 
   <a-light type="ambient" intensity="0.7"></a-light>
 
+  <!-- ctrl sticker -->
   <xrextras-named-image-target name="sticker1">
-    <a-circle color="black" radius="0.5"></a-circle>
-    <a-plane
+    <!-- <a-circle color="black" radius="0.5"></a-circle> -->
+    <!-- <a-plane
       src="#words"
       material="transparent: true"
       position="0 0 0.001"
       animation__spin="property: rotation; from: 0 0 0; to: 0 0 360; loop: true; easing: linear; dur: 10000"
-    ></a-plane>
+    ></a-plane> -->
     <a-plane
       src="#logo"
       material="transparent: true; shader: hologram; numGlitchBars: 20"
       position="0 0 0.002"
     ></a-plane>
+    <a-plane
+      src="#sticker1"
+      material="transparent: true; shader: hologram; numGlitchBars: 20"
+      position="0 0 0.002"
+    ></a-plane>
     </a-entity>
+  </xrextras-named-image-target>
+
+  <!-- qr code sticker -->
+  <xrextras-named-image-target name="sticker2">
+    <!-- <a-plane src="#qrReveal"></a-plane> -->
+     <a-plane chromakey-video="src: #qrReveal; color: #ffffff; similarity: 0.2; smoothness: 0.2; spill: 0; lumaKey: true;"></a-plane>
   </xrextras-named-image-target>
 </a-scene>
 

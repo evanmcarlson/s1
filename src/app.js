@@ -5,6 +5,9 @@ import './styles/index.css'
 import {XRExtras} from './myxrextras/xrextras.js'
 window.XRExtras = XRExtras
 
+import {chromaKeyComponent} from './chromakey'
+AFRAME.registerComponent('chromakey-video', chromaKeyComponent)
+
 // custom ios motion sensor prompt content
 let inDom = false
 const observer = new MutationObserver(() => {
@@ -28,6 +31,7 @@ const onxrloaded = () => {
   XR8.XrController.configure({
     imageTargetData: [
       require('../image-targets/sticker1.json'),
+      require('../image-targets/sticker2.json'),
     ],
   })
 }

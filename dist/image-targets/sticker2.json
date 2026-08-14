@@ -1,0 +1,23 @@
+{
+  "imagePath": "image-targets/sticker2_luminance.jpg",
+  "type": "PLANAR",
+  "properties": {
+    "left": 80,
+    "top": 0,
+    "width": 480,
+    "height": 640,
+    "isRotated": false,
+    "originalWidth": 640,
+    "originalHeight": 640
+  },
+  "metadata": null,
+  "name": "sticker2",
+  "resources": {
+    "originalImage": "sticker2_original.jpg",
+    "croppedImage": "sticker2_cropped.jpg",
+    "thumbnailImage": "sticker2_thumbnail.jpg",
+    "luminanceImage": "sticker2_luminance.jpg"
+  },
+  "created": 1786740699864,
+  "updated": 1786740699864
+}
