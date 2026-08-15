@@ -114,10 +114,62 @@ const sampleAtNdc = (ndcX, ndcY, canvasAspect) => {
   return [pixels[idx] / 255, pixels[idx + 1] / 255, pixels[idx + 2] / 255]
 }
 
+// Scans the video-space bounding box covering the given NDC corners and returns the color of the
+// darkest (lowest-luma) pixel found in it, or null. Used to find "true black" on a physical
+// surface (e.g. a printed marker's dark ink) regardless of exactly where within the region it
+// falls, so callers don't need to hand-tune a sample point to land on a specific dark feature.
+const sampleDarkestInRegion = (ndcCorners, canvasAspect) => {
+  if (!grid_ || !video_.w) {
+    return null
+  }
+
+  let minX = Infinity
+  let maxX = -Infinity
+  let minY = Infinity
+  let maxY = -Infinity
+  ndcCorners.forEach(([ndcX, ndcY]) => {
+    const u = ndcX * 0.5 + 0.5
+    const v = 1 - (ndcY * 0.5 + 0.5)
+    const {x, y} = canvasPointToVideoPoint(u, v, canvasAspect)
+    minX = Math.min(minX, x)
+    maxX = Math.max(maxX, x)
+    minY = Math.min(minY, y)
+    maxY = Math.max(maxY, y)
+  })
+
+  const {pixels, rows, cols} = grid_
+  const rowBytes = grid_.rowBytes || (cols * bytesPerPixel_)
+  const colStart = Math.max(0, Math.floor(minX * cols))
+  const colEnd = Math.min(cols - 1, Math.ceil(maxX * cols))
+  const rowStart = Math.max(0, Math.floor(minY * rows))
+  const rowEnd = Math.min(rows - 1, Math.ceil(maxY * rows))
+
+  let best = null
+  let bestLuma = Infinity
+  for (let row = rowStart; row <= rowEnd; row++) {
+    for (let col = colStart; col <= colEnd; col++) {
+      const idx = (row * rowBytes) + (col * bytesPerPixel_)
+      if (idx + 2 >= pixels.length) {
+        continue
+      }
+      const r = pixels[idx] / 255
+      const g = pixels[idx + 1] / 255
+      const b = pixels[idx + 2] / 255
+      const luma = (r * 0.2126) + (g * 0.7152) + (b * 0.0722)
+      if (luma < bestLuma) {
+        bestLuma = luma
+        best = [r, g, b]
+      }
+    }
+  }
+  return best
+}
+
 const isReady = () => !!(grid_ && video_.w)
 
 export {
   install,
   sampleAtNdc,
+  sampleDarkestInRegion,
   isReady,
 }

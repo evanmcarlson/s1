@@ -60,7 +60,7 @@ AFRAME.registerComponent('color-match-plane', {
     feather: {type: 'number', default: 0.06}, // fraction of the plane's edge that fades to alpha 0
     grain: {type: 'number', default: 0.035}, // amplitude of per-pixel noise added to hide flatness
     maxDimension: {type: 'number', default: 160}, // CameraPixelArray downsample size
-    debug: {type: 'boolean', default: true},
+    debug: {type: 'boolean', default: false},
   },
 
   init() {

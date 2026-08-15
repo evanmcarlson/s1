@@ -21,10 +21,13 @@ class ChromaKeyMaterial extends THREE.ShaderMaterial {
    * @param {boolean} lumaKey Key on brightness instead of chrominance
    *   (needed for black & white / grayscale footage, which has no color
    *   to key on).
+   * @param {boolean} matchBlack Regrade the video's black point to
+   *   matchedBlack (updated live, see camera-color-sampler) instead of
+   *   the source video's literal black.
    */
   constructor(
     url, keyColor, width, height, similarity = 0.01, smoothness = 0.18,
-    spill = 0.1, lumaKey = false
+    spill = 0.1, lumaKey = false, matchBlack = false
   ) {
     super()
 
@@ -47,6 +50,8 @@ class ChromaKeyMaterial extends THREE.ShaderMaterial {
         smoothness: {value: smoothness},
         spill: {value: spill},
         lumaKey: {value: lumaKey ? 1 : 0},
+        matchedBlack: {value: new THREE.Color(0x000000)},
+        matchBlack: {value: matchBlack ? 1 : 0},
 
       },
       vertexShader: VERTEX_SHADER,

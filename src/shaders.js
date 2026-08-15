@@ -19,6 +19,11 @@ uniform float smoothness;
 uniform float spill;
 uniform float lumaKey;
 
+// Regrades the source video as a black-to-white ramp, remapping literal black to matchedBlack
+// (a color sampled live from the real world) instead of the video's own often too-vivid black.
+uniform vec3 matchedBlack;
+uniform float matchBlack;
+
 varying vec2 vUv;
 
 // From https://github.com/libretro/glsl-shaders/blob/master/nnedi3/shaders/rgb-to-yuv.glsl
@@ -35,21 +40,27 @@ float Luma(vec3 rgb) {
 
 vec4 ProcessChromaKey(vec2 texCoord) {
   vec4 rgba = texture2D(tex, texCoord);
+  float luma = Luma(rgba.rgb);
 
   // Grayscale (black & white) footage has no chrominance, so a UV-space
   // distance can't distinguish it from the key color regardless of
   // brightness. For that footage, key on luma (brightness) instead.
   float chromaDist = lumaKey > 0.5
-    ? abs(Luma(rgba.rgb) - Luma(keyColor))
+    ? abs(luma - Luma(keyColor))
     : distance(RGBtoUV(rgba.rgb), RGBtoUV(keyColor));
 
   float baseMask = chromaDist - similarity;
   float fullMask = pow(clamp(baseMask / smoothness, 0., 1.), 1.5);
   rgba.a = fullMask;
 
+  // Fully-opaque pixels would otherwise pass the source video's literal color straight through
+  // (spillVal == 1 there), which is where the video's too-vivid black was showing. Regrade the
+  // whole ramp so black lands on matchedBlack before spill suppression runs on top of it.
+  vec3 sourceColor = matchBlack > 0.5 ? mix(matchedBlack, vec3(1.0), luma) : rgba.rgb;
+
   float spillVal = pow(clamp(baseMask / spill, 0., 1.), 1.5);
-  float desat = clamp(rgba.r * 0.2126 + rgba.g * 0.7152 + rgba.b * 0.0722, 0., 1.);
-  rgba.rgb = mix(vec3(desat, desat, desat), rgba.rgb, spillVal);
+  float desat = clamp(sourceColor.r * 0.2126 + sourceColor.g * 0.7152 + sourceColor.b * 0.0722, 0., 1.);
+  rgba.rgb = mix(vec3(desat, desat, desat), sourceColor, spillVal);
 
   return rgba;
 }
