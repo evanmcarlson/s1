@@ -82,7 +82,8 @@
   <!-- qr code sticker -->
   <xrextras-named-image-target name="sticker2">
     <!-- <a-plane src="#qrReveal"></a-plane> -->
-     <a-plane chromakey-video="src: #qrReveal; color: #ffffff; similarity: 0.2; smoothness: 0.2; spill: 0; lumaKey: true;"></a-plane>
+    <a-plane color-match-plane></a-plane>
+    <a-plane chromakey-video="src: #qrReveal; color: #ffffff; similarity: 0.2; smoothness: 0.2; spill: 0; lumaKey: true;" position="0 0 0.001"></a-plane>
   </xrextras-named-image-target>
 </a-scene>
 

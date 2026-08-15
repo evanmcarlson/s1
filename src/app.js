@@ -8,6 +8,8 @@ window.XRExtras = XRExtras
 import {chromaKeyComponent} from './chromakey'
 AFRAME.registerComponent('chromakey-video', chromaKeyComponent)
 
+import './color-match-plane.js'
+
 // custom ios motion sensor prompt content
 let inDom = false
 const observer = new MutationObserver(() => {
